@@ -1,0 +1,30 @@
+use dojos_and_ninjas_schema;
+
+INSERT INTO dojos (names)
+VALUES ("Arlington"), ("Boise"), ("Tulsa");
+
+SET SQL_SAFE_UPDATES = 0;
+DELETE FROM dojos;
+
+INSERT INTO dojos (names)
+VALUES ("Los Angeles"), ("Chicago"), ("Dallas");
+
+INSERT INTO ninjas (first_name,last_name,age,dojo_id)
+VALUES ("Ichigo","Kurosaki",18,4),("Van","Flyheight",16,4),("Tanjiro","Kamado",13,4);
+
+INSERT INTO ninjas (first_name,last_name,age,dojo_id)
+VALUES ("Heero","Yuy",15,5),("Yusuke","Urameshi",14,5),("Gon","Freecss",11,5);
+
+INSERT INTO ninjas (first_name,last_name,age,dojo_id)
+VALUES ("Edward","Elric",15,6),("Renton","Thurston",14,6),("Naota","Nandaba",12,6);
+
+SELECT * FROM dojos
+LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id
+WHERE dojos.id = 4;
+
+SELECT * FROM dojos
+LEFT JOIN ninjas ON dojos.id = ninjas.dojo_id
+	WHERE dojos.id = (SELECT id FROM dojos ORDER BY id DESC LIMIT 1);
+    
+SELECT * FROM dojos
+WHERE dojos.id = (SELECT dojo_id FROM ninjas ORDER BY dojo_id DESC LIMIT 1);
